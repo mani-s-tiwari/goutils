@@ -19,6 +19,7 @@ import "github.com/mani-s-tiwari/goutils/deque"
 import "github.com/mani-s-tiwari/goutils/dsu"
 import "github.com/mani-s-tiwari/goutils/trie"
 
+```bash
 🔎 Quick Reference (Python → Go)
 Python	Go (goutils)
 heapq.heappush	h.Heappush(heapq.Item{...})
