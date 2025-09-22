@@ -1,4 +1,3 @@
-📄 README.md
 # Go Utils (goutils)
 
 A collection of **data structures and algorithms utilities in Go**, inspired by Python’s `heapq`, `deque`, and C++ STL.  
@@ -19,7 +18,8 @@ import "github.com/mani-s-tiwari/goutils/deque"
 import "github.com/mani-s-tiwari/goutils/dsu"
 import "github.com/mani-s-tiwari/goutils/trie"
 
-```bash
+```
+
 🔎 Quick Reference (Python → Go)
 Python	Go (goutils)
 heapq.heappush	h.Heappush(heapq.Item{...})
@@ -32,8 +32,9 @@ deque.popleft	PopFront()
 DSU / Union-Find	dsu.New(n)
 Trie	trie.New()
 🔹 Included Data Structures (with Code)
-1. Heap (heapq)
 
+1. Heap (heapq)
+```bash
 heapq/heapq.go
 
 package heapq
@@ -75,16 +76,17 @@ func (h *Heap) Heappush(item Item) { heap.Push(h, item) }
 func (h *Heap) Heappop() Item      { return heap.Pop(h).(Item) }
 func (h *Heap) Len2() int          { return len(h.data) }
 
+```
 
 Example
-
+```bash
 h := heapq.NewMaxHeap()
 h.Heappush(heapq.Item{Key: 5, Val: 100})
 h.Heappush(heapq.Item{Key: 9, Val: 200})
 fmt.Println(h.Heappop()) // {Key:9, Val:200}
-
+```
 2. Deque (deque)
-
+```bash
 deque/deque.go
 
 package deque
@@ -102,15 +104,16 @@ func (d *Deque) Front() int       { return d.data[0] }
 func (d *Deque) Back() int        { return d.data[len(d.data)-1] }
 func (d *Deque) Empty() bool      { return len(d.data) == 0 }
 func (d *Deque) Len() int         { return len(d.data) }
-
+```
 
 Example
-
+```bash
 d := deque.New()
 d.PushBack(1)
 d.PushFront(0)
 fmt.Println(d.PopFront()) // 0
-
+```
+```bash
 3. DSU (Disjoint Set Union)
 
 dsu/dsu.go
@@ -153,17 +156,18 @@ func (d *DSU) Union(x, y int) bool {
 	}
 	return true
 }
-
+```
 
 Example
-
+```bash
 uf := dsu.New(5)
 uf.Union(0, 1)
 uf.Union(1, 2)
 fmt.Println(uf.Find(0) == uf.Find(2)) // true
+```
 
 4. Trie (Prefix Tree)
-
+```bash
 trie/trie.go
 
 package trie
@@ -213,9 +217,10 @@ func (t *Trie) StartsWith(prefix string) bool {
 	}
 	return true
 }
-
+```
 
 Example
+```bash
 
 t := trie.New()
 t.Insert("go")
@@ -224,7 +229,7 @@ t.Insert("goal")
 fmt.Println(t.Search("go"))     // true
 fmt.Println(t.Search("god"))    // false
 fmt.Println(t.StartsWith("go")) // true
-
+```
 🛠️ What’s Included
 
 ✅ heapq: MinHeap / MaxHeap (like Python’s heapq)
@@ -242,13 +247,3 @@ This library fills the gaps and makes Go feel closer to Python STL + C++ STL for
 
 
 ---
-
-⚡ This README contains:  
-- Intro + install  
-- Quick reference table (Python → Go)  
-- Full source code for each package (`heapq`, `deque`, `dsu`, `trie`)  
-- Example snippets  
-
----
-
-👉 Do you also want me to include a **section for running tests** (like `go test ./...`) so the repo looks professional?
