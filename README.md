@@ -20,17 +20,21 @@ import "github.com/mani-s-tiwari/goutils/trie"
 
 ```
 
-🔎 Quick Reference (Python → Go)
-Python	Go (goutils)
-heapq.heappush	h.Heappush(heapq.Item{...})
-heapq.heappop	h.Heappop()
-collections.deque	deque.New()
-deque.append	PushBack(x)
-deque.appendleft	PushFront(x)
-deque.pop	PopBack()
-deque.popleft	PopFront()
-DSU / Union-Find	dsu.New(n)
-Trie	trie.New()
+## 🔎 Quick Reference (Python → Go)
+
+| Python              | Go (goutils)                  |
+|---------------------|-------------------------------|
+| `heapq.heappush`    | `h.Heappush(heapq.Item{...})` |
+| `heapq.heappop`     | `h.Heappop()`                 |
+| `collections.deque` | `deque.New()`                 |
+| `deque.append`      | `PushBack(x)`                 |
+| `deque.appendleft`  | `PushFront(x)`                |
+| `deque.pop`         | `PopBack()`                   |
+| `deque.popleft`     | `PopFront()`                  |
+| DSU / Union-Find    | `dsu.New(n)`                  |
+| Trie                | `trie.New()`                  |
+
+
 🔹 Included Data Structures (with Code)
 
 1. Heap (heapq)
