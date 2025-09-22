@@ -37,214 +37,57 @@ import "github.com/mani-s-tiwari/goutils/trie"
 
 🔹 Included Data Structures (with Code)
 
-1. Heap (heapq)
+Example
 ```bash
-heapq/heapq.go
 
-package heapq
+## 🚀 Full Example Usage
+
+Here’s how you can import and use all utilities:
+
+```go
+package main
 
 import (
-	"container/heap"
+	"fmt"
+
+	"github.com/mani-s-tiwari/goutils/heapq"
+	"github.com/mani-s-tiwari/goutils/deque"
+	"github.com/mani-s-tiwari/goutils/dsu"
+	"github.com/mani-s-tiwari/goutils/trie"
 )
 
-type Item struct {
-	Key int // priority (used for ordering)
-	Val int // payload
-}
+func main() {
+	// --- Heap Example ---
+	h := heapq.NewMaxHeap()
+	h.Heappush(heapq.Item{Key: 5, Val: 100})
+	h.Heappush(heapq.Item{Key: 9, Val: 200})
+	h.Heappush(heapq.Item{Key: 1, Val: 300})
+	fmt.Println("Heap pop:", h.Heappop()) // {Key:9, Val:200}
 
-type Heap struct {
-	data []Item
-	min  bool // true = min-heap, false = max-heap
-}
+	// --- Deque Example ---
+	d := deque.New()
+	d.PushBack(1)
+	d.PushFront(0)
+	fmt.Println("Deque PopFront:", d.PopFront()) // 0
+	fmt.Println("Deque PopBack:", d.PopBack())   // 1
 
-func (h Heap) Len() int { return len(h.data) }
-func (h Heap) Less(i, j int) bool {
-	if h.min {
-		return h.data[i].Key < h.data[j].Key
-	}
-	return h.data[i].Key > h.data[j].Key
-}
-func (h Heap) Swap(i, j int)       { h.data[i], h.data[j] = h.data[j], h.data[i] }
-func (h *Heap) Push(x interface{}) { h.data = append(h.data, x.(Item)) }
-func (h *Heap) Pop() interface{} {
-	old := h.data
-	n := len(old)
-	x := old[n-1]
-	h.data = old[:n-1]
-	return x
-}
+	// --- DSU Example ---
+	uf := dsu.New(5)
+	uf.Union(0, 1)
+	uf.Union(1, 2)
+	fmt.Println("DSU Connected(0,2):", uf.Find(0) == uf.Find(2)) // true
+	fmt.Println("DSU Connected(3,4):", uf.Find(3) == uf.Find(4)) // false
 
-func NewMinHeap() *Heap { h := &Heap{min: true}; heap.Init(h); return h }
-func NewMaxHeap() *Heap { h := &Heap{min: false}; heap.Init(h); return h }
-func (h *Heap) Heappush(item Item) { heap.Push(h, item) }
-func (h *Heap) Heappop() Item      { return heap.Pop(h).(Item) }
-func (h *Heap) Len2() int          { return len(h.data) }
+	// --- Trie Example ---
+	t := trie.New()
+	t.Insert("go")
+	t.Insert("goal")
+	fmt.Println("Trie Search(go):", t.Search("go"))        // true
+	fmt.Println("Trie Search(god):", t.Search("god"))      // false
+	fmt.Println("Trie StartsWith(go):", t.StartsWith("go")) // true
+}
 
 ```
-
-Example
-```bash
-h := heapq.NewMaxHeap()
-h.Heappush(heapq.Item{Key: 5, Val: 100})
-h.Heappush(heapq.Item{Key: 9, Val: 200})
-fmt.Println(h.Heappop()) // {Key:9, Val:200}
-```
-2. Deque (deque)
-```bash
-deque/deque.go
-
-package deque
-
-type Deque struct {
-	data []int
-}
-
-func New() *Deque { return &Deque{data: []int{}} }
-func (d *Deque) PushBack(x int)   { d.data = append(d.data, x) }
-func (d *Deque) PushFront(x int)  { d.data = append([]int{x}, d.data...) }
-func (d *Deque) PopBack() int     { x := d.data[len(d.data)-1]; d.data = d.data[:len(d.data)-1]; return x }
-func (d *Deque) PopFront() int    { x := d.data[0]; d.data = d.data[1:]; return x }
-func (d *Deque) Front() int       { return d.data[0] }
-func (d *Deque) Back() int        { return d.data[len(d.data)-1] }
-func (d *Deque) Empty() bool      { return len(d.data) == 0 }
-func (d *Deque) Len() int         { return len(d.data) }
-```
-
-Example
-```bash
-d := deque.New()
-d.PushBack(1)
-d.PushFront(0)
-fmt.Println(d.PopFront()) // 0
-```
-```bash
-3. DSU (Disjoint Set Union)
-
-dsu/dsu.go
-
-package dsu
-
-type DSU struct {
-	parent []int
-	rank   []int
-}
-
-func New(n int) *DSU {
-	parent := make([]int, n)
-	rank := make([]int, n)
-	for i := range parent {
-		parent[i] = i
-	}
-	return &DSU{parent: parent, rank: rank}
-}
-
-func (d *DSU) Find(x int) int {
-	if d.parent[x] != x {
-		d.parent[x] = d.Find(d.parent[x]) // path compression
-	}
-	return d.parent[x]
-}
-
-func (d *DSU) Union(x, y int) bool {
-	rx, ry := d.Find(x), d.Find(y)
-	if rx == ry {
-		return false
-	}
-	if d.rank[rx] < d.rank[ry] {
-		d.parent[rx] = ry
-	} else if d.rank[rx] > d.rank[ry] {
-		d.parent[ry] = rx
-	} else {
-		d.parent[ry] = rx
-		d.rank[rx]++
-	}
-	return true
-}
-```
-
-Example
-```bash
-uf := dsu.New(5)
-uf.Union(0, 1)
-uf.Union(1, 2)
-fmt.Println(uf.Find(0) == uf.Find(2)) // true
-```
-
-4. Trie (Prefix Tree)
-```bash
-trie/trie.go
-
-package trie
-
-type Node struct {
-	children map[rune]*Node
-	isEnd    bool
-}
-
-type Trie struct {
-	root *Node
-}
-
-func New() *Trie {
-	return &Trie{root: &Node{children: make(map[rune]*Node)}}
-}
-
-func (t *Trie) Insert(word string) {
-	node := t.root
-	for _, ch := range word {
-		if node.children[ch] == nil {
-			node.children[ch] = &Node{children: make(map[rune]*Node)}
-		}
-		node = node.children[ch]
-	}
-	node.isEnd = true
-}
-
-func (t *Trie) Search(word string) bool {
-	node := t.root
-	for _, ch := range word {
-		if node.children[ch] == nil {
-			return false
-		}
-		node = node.children[ch]
-	}
-	return node.isEnd
-}
-
-func (t *Trie) StartsWith(prefix string) bool {
-	node := t.root
-	for _, ch := range prefix {
-		if node.children[ch] == nil {
-			return false
-		}
-		node = node.children[ch]
-	}
-	return true
-}
-```
-
-Example
-```bash
-
-t := trie.New()
-t.Insert("go")
-t.Insert("goal")
-
-fmt.Println(t.Search("go"))     // true
-fmt.Println(t.Search("god"))    // false
-fmt.Println(t.StartsWith("go")) // true
-```
-🛠️ What’s Included
-
-✅ heapq: MinHeap / MaxHeap (like Python’s heapq)
-
-✅ deque: Double-ended queue (like collections.deque)
-
-✅ dsu: Disjoint Set Union (Union-Find)
-
-✅ trie: Prefix Tree for strings
-
-🎯 Why?
 
 Go is great for backend systems but lacks built-in data structures for DSA/competitive programming.
 This library fills the gaps and makes Go feel closer to Python STL + C++ STL for problem-solving.
