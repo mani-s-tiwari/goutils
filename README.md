@@ -38,8 +38,6 @@ import "github.com/mani-s-tiwari/goutils/trie"
 🔹 Included Data Structures (with Code)
 
 Example
-```bash
-
 ## 🚀 Full Example Usage
 
 Here’s how you can import and use all utilities:
@@ -86,7 +84,6 @@ func main() {
 	fmt.Println("Trie Search(god):", t.Search("god"))      // false
 	fmt.Println("Trie StartsWith(go):", t.StartsWith("go")) // true
 }
-
 ```
 
 Go is great for backend systems but lacks built-in data structures for DSA/competitive programming.
