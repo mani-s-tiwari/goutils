@@ -20,19 +20,20 @@ import "github.com/mani-s-tiwari/goutils/trie"
 
 ```
 
-## 🔎 Quick Reference (Python → Go)
+## 🔎 Quick Reference (Python → Go with Examples)
 
-| Python              | Go (goutils)                  |
-|---------------------|-------------------------------|
-| `heapq.heappush`    | `h.Heappush(heapq.Item{...})` |
-| `heapq.heappop`     | `h.Heappop()`                 |
-| `collections.deque` | `deque.New()`                 |
-| `deque.append`      | `PushBack(x)`                 |
-| `deque.appendleft`  | `PushFront(x)`                |
-| `deque.pop`         | `PopBack()`                   |
-| `deque.popleft`     | `PopFront()`                  |
-| DSU / Union-Find    | `dsu.New(n)`                  |
-| Trie                | `trie.New()`                  |
+| Python              | Go (goutils)                  | Example (Go Code)                                                                 |
+|---------------------|-------------------------------|-----------------------------------------------------------------------------------|
+| `heapq.heappush`    | `h.Heappush(heapq.Item{...})` | ```go\nh := heapq.NewMaxHeap()\nh.Heappush(heapq.Item{Key: 5, Val: 100})\n```     |
+| `heapq.heappop`     | `h.Heappop()`                 | ```go\nitem := h.Heappop()\nfmt.Println(item.Val)\n```                            |
+| `collections.deque` | `deque.New()`                 | ```go\nd := deque.New()\n```                                                      |
+| `deque.append`      | `PushBack(x)`                 | ```go\nd.PushBack(10)\n```                                                        |
+| `deque.appendleft`  | `PushFront(x)`                | ```go\nd.PushFront(5)\n```                                                        |
+| `deque.pop`         | `PopBack()`                   | ```go\nx := d.PopBack()\n```                                                      |
+| `deque.popleft`     | `PopFront()`                  | ```go\nx := d.PopFront()\n```                                                     |
+| DSU / Union-Find    | `dsu.New(n)`                  | ```go\nuf := dsu.New(5)\nuf.Union(0, 1)\nfmt.Println(uf.Find(0) == uf.Find(1))\n``` |
+| Trie                | `trie.New()`                  | ```go\nt := trie.New()\nt.Insert("go")\nfmt.Println(t.Search("go"))\n```          |
+
 
 
 🔹 Included Data Structures (with Code)
